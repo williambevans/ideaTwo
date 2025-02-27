@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shockwave Detection System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+            text-align: center;
+        }
+        header {
+            background-color: #1e1e1e;
+            padding: 20px;
+        }
+        .sensor-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px;
+        }
+        .sensor-box {
+            background-color: #222;
+            padding: 20px;
+            border-radius: 8px;
+            width: 150px;
+        }
+        canvas {
+            width: 90%;
+            max-width: 600px;
+            margin-top: 20px;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #444;
+        }
+        footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #1e1e1e;
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const pressureValue = document.getElementById("pressure-value");
+            const seismicValue = document.getElementById("seismic-value");
+            const soundFrequency = document.getElementById("sound-frequency");
+            const logTableBody = document.getElementById("log-table-body");
+
+            // Simulated sensor data fetching (replace with Arduino API fetch)
+            async function fetchSensorData() {
+                try {
+                    // Simulated data - replace with actual Arduino endpoint
+                    const data = {
+                        pressure: (Math.random() * 50 + 950).toFixed(2),  // Pressure in Pascals
+                        seismic: (Math.random() * 3).toFixed(2), // Seismic magnitude
+                        sound: (Math.random() * 100 + 100).toFixed(2) // Frequency in Hz
+                    };
+
+                    // Update live values
+                    pressureValue.textContent = `${data.pressure} Pa`;
+                    seismicValue.textContent = `${data.seismic} Mag`;
+                    soundFrequency.textContent = `${data.sound} Hz`;
+
+                    // Add to logs
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${new Date().toLocaleTimeString()}</td>
+                        <td>${data.pressure}</td>
+                        <td>${data.seismic}</td>
+                        <td>${data.sound}</td>
+                    `;
+                    logTableBody.appendChild(row);
+                } catch (error) {
+                    console.error("Error fetching sensor data:", error);
+                }
+            }
+
+            // Fetch data every 3 seconds
+            setInterval(fetchSensorData, 3000);
+        });
+    </script>
+</head>
+<body>
+
+    <header>
+        <h1>Shockwave Detection System</h1>
+        <p>Monitoring residual kinetic energy from high-impact shockwaves</p>
+    </header>
+
+    <main>
+        <!-- Live Sensor Data Display -->
+        <section id="live-data">
+            <h2>Live Sensor Readings</h2>
+            <div class="sensor-container">
+                <div class="sensor-box">
+                    <h3>Pressure Sensor</h3>
+                    <p id="pressure-value">--</p>
+                </div>
+                <div class="sensor-box">
+                    <h3>Seismic Sensor</h3>
+                    <p id="seismic-value">--</p>
+                </div>
+                <div class="sensor-box">
+                    <h3>Sound Frequency</h3>
+                    <p id="sound-frequency">--</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Logs -->
+        <section id="data-logs">
+            <h2>Event Logs</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Pressure (Pa)</th>
+                        <th>Seismic (Magnitude)</th>
+                        <th>Sound (Hz)</th>
+                    </tr>
+                </thead>
+                <tbody id="log-table-body">
+                    <!-- Log Data Will Populate Here -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Shockwave Detection System | Developed by W. Bevans</p>
+    </footer>
+
+</body>
+</html>
+
+
+---
+
+How This Works
+
+✔ One HTML File – No external dependencies, fully self-contained.
+✔ Simulated Data – Replace with actual Arduino API fetching data via
+
